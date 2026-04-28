@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Conversation {
+  id        Int      @id @default(autoincrement())
+  sessionId String
+  role      String
+  content   String
+  createdAt DateTime @default(now())
+
+  @@index([sessionId])
+}
+
+model UserProfile {
+  sessionId String   @id
+  profile   Json     @default("{}")
+  updatedAt DateTime @updatedAt
+}
